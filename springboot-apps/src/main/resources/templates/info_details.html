@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${title}">Spring Boot page</title>
+</head>
+<body>
+<!--
+    <h1 th:text="${title}"></h1>
+    <p th:text="${message}"></p>
+    <footer th:text="${footer}"></footer> 
+-->
+    <h1>Employee Details</h1>
+    <ul>        
+        <li><strong>Name:</strong> <span th:text="${Employee.name}"></span></li>
+        <li><strong>Last Name:</strong> <span th:text="${Employee.lastName}"></span></li>
+        <li><strong>Address:</strong> <span th:text="${Employee.address}"></span></li>
+        <li><strong>Role:</strong> <span th:text="${Employee.role}"></span></li>
+        <li><strong>Age:</strong> <span th:text="${Employee.age}"></span></li>
+        <li><strong>Phone:</strong> <span th:text="${Employee.phone}"></span></li>
+        <li><strong>ID:</strong> <span th:text="${Employee.id}"></span></li>
+    </ul>
+</body>
+</html>

@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-SpringbootAppsApplication<springboot-apps>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.jfrg.spring.app1.springboot_apps.SpringbootAppsApplication",
+            "projectName": "springboot-apps",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}
