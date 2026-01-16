@@ -24,5 +24,31 @@
         <li><strong>Phone:</strong> <span th:text="${Employee.phone}"></span></li>
         <li><strong>ID:</strong> <span th:text="${Employee.id}"></span></li>
     </ul>
+
+    <h1>List of Employees</h1>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Last Name</th>
+                <th>Address</th>
+                <th>Role</th>
+                <th>Age</th>
+                <th>Phone</th>
+                <th>ID</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="Employee : ${employees}">
+                <td th:text="${Employee.name}"></td>
+                <td th:text="${Employee.lastName}"></td>
+                <td th:text="${Employee.address != null ? Employee.address : 'No address provided'}"></td>
+                <td th:text="${Employee.role}"></td>
+                <td th:text="${Employee.age}"></td>
+                <td th:text="${Employee.phone}"></td>
+                <td th:text="${Employee.id}"></td>
+            </tr>
+        </tbody>
+    </table>
 </body>
 </html>
