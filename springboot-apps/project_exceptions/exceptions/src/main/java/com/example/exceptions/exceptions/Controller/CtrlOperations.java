@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 @RestController
 @RequestMapping("/api/operations")
 
-public class Operations {
+public class CtrlOperations {
 
     @GetMapping("/divide")
     public String divide() {
