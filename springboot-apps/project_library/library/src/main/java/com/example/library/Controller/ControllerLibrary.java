@@ -51,14 +51,14 @@ public class ControllerLibrary {
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
-
+*/
     @GetMapping("/clone")
     public String testClone() {
         Books originalBook = new Books(4L, "1984", "George Orwell", java.time.LocalDate.of(1949, 6, 8));
         Books clonedBook = originalBook.clone();
         return "Original Book: " + originalBook.toString() + ", Cloned Book: " + clonedBook.toString();
     }
-*/
+
     private final I_ServiceBook i_ServiceBook;
 
     public ControllerLibrary(I_ServiceBook i_ServiceBook) {
