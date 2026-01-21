@@ -18,6 +18,7 @@ public class CtrlOperations {
     }
 */
     public String divide(@RequestParam String paramNumber) {
+/*
         try {
             float value = Float.parseFloat(paramNumber);
             float result = 10 / value;
@@ -28,4 +29,24 @@ public class CtrlOperations {
             return "Error: Division by zero not allowed.";
         }
     }
+ */
+        float value = Float.parseFloat(paramNumber);
+        float result = 10 / value;
+        return "Result: " + result;
+    }
+
+@RestController
+@RequestMapping("/api/operations")
+
+class NullObject{
+
+    @GetMapping("/nullcheck")
+    
+    public String NullCheck() {
+        String strNull = null;
+        strNull.length();
+        return "Variable has a null value.";
+    }
+
+}
 }

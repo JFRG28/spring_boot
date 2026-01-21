@@ -14,4 +14,14 @@ public class HandlerErrors {
         return new ResponseEntity<>("Error: Division by zero is not allowed.", HttpStatus.BAD_REQUEST);
     }
 
+    @ExceptionHandler(NullPointerException.class)
+    public ResponseEntity<String> handlerNullPointerException(NullPointerException ERROR) {
+        return new ResponseEntity<>("Error: Attempted to access a null object.", HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(NumberFormatException.class)
+    public ResponseEntity<String> handlerNumberFormatException(NumberFormatException ERROR) {
+        return new ResponseEntity<>("Error: Invalid number format.", HttpStatus.BAD_REQUEST);
+    }
+
 }
