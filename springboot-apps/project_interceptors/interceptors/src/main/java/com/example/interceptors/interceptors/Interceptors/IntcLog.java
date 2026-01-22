@@ -9,7 +9,7 @@ import jakarta.servlet.http.HttpServletResponse;
 
 @Component
 
-public class IntcInterceptor implements HandlerInterceptor {
+public class IntcLog implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception{
@@ -23,7 +23,7 @@ public class IntcInterceptor implements HandlerInterceptor {
     }
 
     @Override
-    public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception{
+    public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ERROR) throws Exception{
             System.out.println("After completion..."+ request.getRequestURI());
-    }
+    }    
 }

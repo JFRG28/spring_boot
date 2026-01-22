@@ -13,7 +13,4 @@ public class CtrlInterceptor {
     public String Greetings() {
         return "Testing interceptors";
     }
-    
-    
-
 }
