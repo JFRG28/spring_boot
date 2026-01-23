@@ -7,6 +7,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.hibernate.hibernate.DTOs.DTOArticle;
 import com.example.hibernate.hibernate.Services.ServArticle;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+
 
 @RestController
 @RequestMapping("/api/articles")
@@ -18,8 +21,14 @@ public class CtrlArticle {
 
     @GetMapping("/all")
     public List<DTOArticle> getAllArticles() {
-        return servArticle.getAllArticles();
+        return servArticle.srv_getAllArticles();
     }
+
+    @PostMapping("/insertArticle")
+    public DTOArticle insertArticle(@RequestBody DTOArticle paramDTO) {
+        return servArticle.srv_insertArticle(paramDTO);
+    }
+    
     
 /*
 Commented to use ServArticle.java to comply with best practices.
