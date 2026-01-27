@@ -36,7 +36,7 @@
 </header>
 
 <nav>
-    <a href="#">Products</a>
+    <a href="#">Articles</a>
     <a href="#">Providers</a>
     <a href="#">Sales</a>
     <a href="#">Users</a>
@@ -47,12 +47,12 @@
 <h3>Control de Inventario</h3>
 
 <div id="panel">
-    <button class="btn-blue" onclick="listAllProducts()"><i class="fas fa-box"></i> List Product</button>
-    <button class="btn-blue" onclick="findProductId()"><i class="fas fa-search"></i> Find Product</button>
+    <button class="btn-blue" onclick="listAllarticles()"><i class="fas fa-box"></i> List Article</button>
+    <button class="btn-blue" onclick="findarticleId()"><i class="fas fa-search"></i> Find Article</button>
     <hr>
-    <button class="btn-green" onclick="renderFormUpdateProduct()"><i class="fas fa-edit"></i> Update Product</button>
-    <button class="btn-gray" onclick="renderFormDeleteProduct()"><i class="fas fa-trash"></i> Delete Product</button>
-    <button class="btn-orange" onclick="renderFormInsertProduct()"><i class="fas fa-plus"></i> Insert Product</button>
+    <button class="btn-green" onclick="renderFormUpdatearticle()"><i class="fas fa-edit"></i> Update Article</button>
+    <button class="btn-gray" onclick="renderFormDeletearticle()"><i class="fas fa-trash"></i> Delete Article</button>
+    <button class="btn-orange" onclick="renderFormInsertarticle()"><i class="fas fa-plus"></i> Insert Article</button>
 </div>
 
 <div id="forms" style="margin: 20px;"></div>
@@ -62,47 +62,47 @@
        const BASE_URL = "http://localhost:8080/api/articles";
 
 
-    // LIST PRODUCTS
-    function listAllProducts() {
+    // LIST Articles
+    function listAllarticles() {
         $.get(BASE_URL, function (data) {
             renderTable(data);
-        }).fail(() => Swal.fire("Error", "No products found", "error"));
+        }).fail(() => Swal.fire("Error", "No Articles found", "error"));
     }
 
     // FIND BY ID
-    function findProductId() {
+    function findarticleId() {
         Swal.fire({
-            title: "Find product",
+            title: "Find article",
             input: "number",
-            inputLabel: "Type the ID of the product",
+            inputLabel: "Type the ID of the article",
             showCancelButton: true,
             confirmButtonText: "Search"
         }).then(result => {
             if (result.isConfirmed && result.value) {
                 $.get(BASE_URL + "/" + result.value, function (data) {
                     renderTable([data]);
-                }).fail(() => Swal.fire("Error", "Product not found", "error"));
+                }).fail(() => Swal.fire("Error", "Article not found", "error"));
             }
         });
     }
 
     // FORM UPDATE
-    function renderFormUpdateProduct() {
+    function renderFormUpdatearticle() {
         $("#forms").html(`
-            <h4>Update Product</h4>
-            <input type="number" id="inputID" placeholder="Product ID"><br>
-            <input type="text" id="inputProductName" placeholder="New name"><br>
+            <h4>Update Article</h4>
+            <input type="number" id="inputID" placeholder="Article ID"><br>
+            <input type="text" id="inputarticleName" placeholder="New name"><br>
             <input type="number" id="inputPrice" placeholder="New price"><br>
             <input type="number" id="inputQty" placeholder="New quantity"><br>
-            <button class="btn-green" onclick="updateProduct()">Update</button>
+            <button class="btn-green" onclick="updatearticle()">Update</button>
         `);
     }
 
-    // UPDATE PRODUCT
-    function updateProduct() {
+    // UPDATE article
+    function updatearticle() {
         const id = $("#inputID").val();
         const dto = {
-            articleName: $("#inputProductName").val(),
+            articleName: $("#inputarticleName").val(),
             price: $("#inputPrice").val(),
             quantity: $("#inputQty").val()
         };
@@ -112,7 +112,7 @@
             contentType: "application/json",
             data: JSON.stringify(dto),
             success: data => {
-                Swal.fire("Success", "Product updated OK", "success");
+                Swal.fire("Success", "Article updated OK", "success");
                 renderTable([data]);
             },
             error: () => Swal.fire("Error", "Not updated", "error")
@@ -120,16 +120,16 @@
     }
 
     // FORM DELETE
-    function renderFormDeleteProduct() {
+    function renderFormDeletearticle() {
         $("#forms").html(`
-            <h4>Delete Product</h4>
-            <input type="number" id="delId" placeholder="Product ID"><br>
-            <button class="btn-gray" onclick="deleteProduct()">Delete</button>
+            <h4>Delete Article</h4>
+            <input type="number" id="delId" placeholder="Article ID"><br>
+            <button class="btn-gray" onclick="deletearticle()">Delete</button>
         `);
     }
 
-    // DELETE PRODUCT
-    function deleteProduct() {
+    // DELETE article
+    function deletearticle() {
         const id = $("#delId").val();
         $.ajax({
             url: BASE_URL + "/" + id,
@@ -140,18 +140,18 @@
     }
 
     // FORM INSERT
-    function renderFormInsertProduct() {
+    function renderFormInsertarticle() {
         $("#forms").html(`
-            <h4>Insert new product</h4>
-            <input type="text" id="insName" placeholder="Product name"><br>
+            <h4>Insert new article</h4>
+            <input type="text" id="insName" placeholder="Article name"><br>
             <input type="number" id="insPrice" placeholder="price"><br>
             <input type="number" id="insQty" placeholder="quantity"><br>
-            <button class="btn-orange" onclick="insertProduct()">Save</button>
+            <button class="btn-orange" onclick="insertarticle()">Save</button>
         `);
     }
 
-    // INSERT PRODUCT
-    function insertProduct() {
+    // INSERT article
+    function insertarticle() {
         const dto = {
             articleName: $("#insName").val(),
             price: $("#insPrice").val(),
@@ -163,7 +163,7 @@
             contentType: "application/json",
             data: JSON.stringify(dto),
             success: data => {
-                Swal.fire("Success", "Product registered OK", "success");
+                Swal.fire("Success", "Article registered OK", "success");
                 renderTable([data]);
             },
             error: () => Swal.fire("Error", "Not registered", "error")
