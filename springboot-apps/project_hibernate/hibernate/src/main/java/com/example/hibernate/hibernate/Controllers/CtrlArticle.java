@@ -6,6 +6,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.example.hibernate.hibernate.DTOs.DTOArticle;
 import com.example.hibernate.hibernate.Services.SrvArticle;
+
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -32,9 +34,14 @@ public class CtrlArticle {
         return servArticle.srv_insertArticle(paramDTO);
     }
 
-    @PutMapping("/{paramId}")
+    @PutMapping("updateArticle/{paramId}")
     public DTOArticle updateArticle(@PathVariable Long paramId, @RequestBody DTOArticle paramDTO) {
         return servArticle.srv_updateArticle(paramId, paramDTO);
+    }
+
+    @DeleteMapping("deleteArticle/{paramId}")
+    public String deleteArticle(@PathVariable Long paramId) {
+        return  servArticle.srv_deleteArticle(paramId);
     }
     
     

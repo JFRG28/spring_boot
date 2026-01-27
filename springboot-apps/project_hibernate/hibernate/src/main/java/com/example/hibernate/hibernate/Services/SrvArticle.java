@@ -44,4 +44,14 @@ public class SrvArticle {
             throw new RuntimeException("Article not found. ID: "+paramId);
         }
     }
+
+    public String srv_deleteArticle(Long paramId) {
+        if (repoArticles.existsById(paramId)) {
+            repoArticles.deleteById(paramId);
+            
+            return "Article deleted successfully";
+        } else {
+            throw new RuntimeException("Article not found. ID: "+paramId);
+        }
+    }
 }
