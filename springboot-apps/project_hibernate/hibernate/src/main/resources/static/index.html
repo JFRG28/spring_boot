@@ -47,12 +47,12 @@
 <h3>Control de Inventario</h3>
 
 <div id="panel">
-    <button class="btn-blue" onclick="getAllArticles()"><i class="fas fa-box"></i> List Product</button>
-    <button class="btn-blue" onclick="buscarProductoId()"><i class="fas fa-search"></i> Find Product</button>
+    <button class="btn-blue" onclick="listAllProducts()"><i class="fas fa-box"></i> List Product</button>
+    <button class="btn-blue" onclick="findProductId()"><i class="fas fa-search"></i> Find Product</button>
     <hr>
-    <button class="btn-green" onclick="mostrarFormularioActualizar()"><i class="fas fa-edit"></i> Update Product</button>
-    <button class="btn-gray" onclick="mostrarFormularioEliminar()"><i class="fas fa-trash"></i> Delete Product</button>
-    <button class="btn-orange" onclick="mostrarFormularioInsertar()"><i class="fas fa-plus"></i> Insert Product</button>
+    <button class="btn-green" onclick="renderFormUpdateProduct()"><i class="fas fa-edit"></i> Update Product</button>
+    <button class="btn-gray" onclick="renderFormDeleteProduct()"><i class="fas fa-trash"></i> Delete Product</button>
+    <button class="btn-orange" onclick="renderFormInsertProduct()"><i class="fas fa-plus"></i> Insert Product</button>
 </div>
 
 <div id="formularios" style="margin: 20px;"></div>
@@ -63,31 +63,31 @@
 
 
     // LISTAR PRODUCTOS
-    function getAllArticles() {
+    function listAllProducts() {
         $.get(BASE_URL, function (data) {
             mostrarTabla(data);
-        }).fail(() => Swal.fire("Error", "No se pudieron obtener los productos", "error"));
+        }).fail(() => Swal.fire("Error", "No products found", "error"));
     }
 
     // BUSCAR POR ID
-    function buscarProductoId() {
+    function findProductId() {
         Swal.fire({
-            title: "Buscar producto",
+            title: "Find product",
             input: "number",
-            inputLabel: "Ingrese el ID del producto",
+            inputLabel: "Type in the ID of the product",
             showCancelButton: true,
-            confirmButtonText: "Buscar"
+            confirmButtonText: "Search"
         }).then(result => {
             if (result.isConfirmed && result.value) {
                 $.get(BASE_URL + "/" + result.value, function (data) {
                     mostrarTabla([data]);
-                }).fail(() => Swal.fire("Error", "Producto no encontrado", "error"));
+                }).fail(() => Swal.fire("Error", "Producto not found", "error"));
             }
         });
     }
 
     // FORMULARIO ACTUALIZAR
-    function mostrarFormularioActualizar() {
+    function renderFormUpdateProduct() {
         $("#formularios").html(`
             <h4>Actualizar Producto</h4>
             <input type="number" id="updId" placeholder="ID del producto"><br>
@@ -120,7 +120,7 @@
     }
 
     // FORMULARIO ELIMINAR
-    function mostrarFormularioEliminar() {
+    function renderFormDeleteProduct() {
         $("#formularios").html(`
             <h4>Eliminar Producto</h4>
             <input type="number" id="delId" placeholder="ID del producto"><br>
@@ -140,7 +140,7 @@
     }
 
     // FORMULARIO INSERTAR
-    function mostrarFormularioInsertar() {
+    function renderFormInsertProduct() {
         $("#formularios").html(`
             <h4>Insertar Nuevo Producto</h4>
             <input type="text" id="insNombre" placeholder="Nombre del producto"><br>
@@ -185,9 +185,9 @@
             html += `
                 <tr>
                     <td>${a.id}</td>
-                    <td>${a.descripcion}</td>
-                    <td>${a.precio}</td>
-                    <td>${a.existencia}</td>
+                    <td>${a.articleName}</td>
+                    <td>${a.price}</td>
+                    <td>${a.quantity}</td>
                 </tr>
             `;
         });
