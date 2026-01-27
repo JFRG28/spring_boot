@@ -21,6 +21,11 @@ public class SrvArticle {
         return repoArticles.findAll().stream().map(MapArticle::toDTO).collect(Collectors.toList());
     }
 
+    public DTOArticle srv_getArticleById(Long paramId) {
+        EntArticle entArticle = repoArticles.findById(paramId).orElseThrow(() -> new RuntimeException("Article not found. ID: "+paramId));
+        return MapArticle.toDTO(entArticle);
+    }
+
     public DTOArticle srv_insertArticle(DTOArticle paramDtoArticle) {
         EntArticle entArticle = MapArticle.toEntity(paramDtoArticle);
         EntArticle saveArticle = repoArticles.save(entArticle);
@@ -48,7 +53,7 @@ public class SrvArticle {
     public String srv_deleteArticle(Long paramId) {
         if (repoArticles.existsById(paramId)) {
             repoArticles.deleteById(paramId);
-            
+
             return "Article deleted successfully";
         } else {
             throw new RuntimeException("Article not found. ID: "+paramId);

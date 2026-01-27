@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.example.hibernate.hibernate.DTOs.DTOArticle;
 import com.example.hibernate.hibernate.Services.SrvArticle;
-
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,8 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
-
-
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/api/articles")
 
@@ -24,22 +23,28 @@ public class CtrlArticle {
     @Autowired
     private SrvArticle servArticle;
 
-    @GetMapping("/all")
+    @GetMapping
     public List<DTOArticle> getAllArticles() {
         return servArticle.srv_getAllArticles();
     }
 
-    @PostMapping("/insertArticle")
+    @GetMapping("/{paramID}")
+    public DTOArticle getArticleById(@PathVariable Long paramID) {
+        return servArticle.srv_getArticleById(paramID);
+    }
+    
+
+    @PostMapping
     public DTOArticle insertArticle(@RequestBody DTOArticle paramDTO) {
         return servArticle.srv_insertArticle(paramDTO);
     }
 
-    @PutMapping("updateArticle/{paramId}")
+    @PutMapping("/{paramId}")
     public DTOArticle updateArticle(@PathVariable Long paramId, @RequestBody DTOArticle paramDTO) {
         return servArticle.srv_updateArticle(paramId, paramDTO);
     }
 
-    @DeleteMapping("deleteArticle/{paramId}")
+    @DeleteMapping("/{paramId}")
     public String deleteArticle(@PathVariable Long paramId) {
         return  servArticle.srv_deleteArticle(paramId);
     }
@@ -66,3 +71,4 @@ Commented to use ServArticle.java to comply with best practices.
     }
 */
 }
+
