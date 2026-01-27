@@ -1,6 +1,7 @@
 package com.example.hibernate.hibernate.Services;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,7 +12,7 @@ import com.example.hibernate.hibernate.Repository.RepoArticles;
 
 @Service
 
-public class ServArticle {
+public class SrvArticle {
 
     @Autowired
     private RepoArticles repoArticles;
@@ -26,4 +27,21 @@ public class ServArticle {
         return MapArticle.toDTO(saveArticle);
     }
 
+    public DTOArticle srv_updateArticle(Long paramId, DTOArticle paramDtoArticle) {
+        Optional<EntArticle> existsOptionalArticle = repoArticles.findById(paramId);
+
+        if (existsOptionalArticle.isPresent()){
+            EntArticle entArticle = existsOptionalArticle.get();
+
+            entArticle.setArticleName(paramDtoArticle.getArticleName());
+            entArticle.setPrice(paramDtoArticle.getPrice());
+            entArticle.setQuantity(paramDtoArticle.getQuantity());
+            
+            EntArticle updateArticle = repoArticles.save(entArticle);
+            
+            return MapArticle.toDTO(updateArticle);
+        } else {
+            throw new RuntimeException("Article not found. ID: "+paramId);
+        }
+    }
 }

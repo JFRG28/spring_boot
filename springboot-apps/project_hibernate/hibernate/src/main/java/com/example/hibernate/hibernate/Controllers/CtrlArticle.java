@@ -5,10 +5,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.example.hibernate.hibernate.DTOs.DTOArticle;
-import com.example.hibernate.hibernate.Services.ServArticle;
+import com.example.hibernate.hibernate.Services.SrvArticle;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+
 
 
 @RestController
@@ -17,7 +20,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 public class CtrlArticle {
 
     @Autowired
-    private ServArticle servArticle;
+    private SrvArticle servArticle;
 
     @GetMapping("/all")
     public List<DTOArticle> getAllArticles() {
@@ -27,6 +30,11 @@ public class CtrlArticle {
     @PostMapping("/insertArticle")
     public DTOArticle insertArticle(@RequestBody DTOArticle paramDTO) {
         return servArticle.srv_insertArticle(paramDTO);
+    }
+
+    @PutMapping("/{paramId}")
+    public DTOArticle updateArticle(@PathVariable Long paramId, @RequestBody DTOArticle paramDTO) {
+        return servArticle.srv_updateArticle(paramId, paramDTO);
     }
     
     
