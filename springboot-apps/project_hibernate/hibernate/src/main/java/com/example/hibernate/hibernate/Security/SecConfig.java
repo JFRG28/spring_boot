@@ -9,13 +9,18 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
+import com.example.hibernate.hibernate.Services.SrvUser;
 
 @Configuration
 @EnableWebSecurity
 
 public class SecConfig {
+
+    private final SrvUser srvUser;
+
+    public SecConfig(SrvUser srvUser) {
+        this.srvUser = srvUser;
+    }
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -28,12 +33,18 @@ public class SecConfig {
     }
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity paramHttpSecurity) throws Exception { 
+    public SecurityFilterChain securityFilterChain(HttpSecurity paramHttpSecurity, AuthenticationManager paramAuthMngr) throws Exception { 
         paramHttpSecurity.
             csrf(csrf -> csrf.disable())
-            .authorizeHttpRequests(auth -> auth.anyRequest().authenticated())
-            .securityMatcher("/**")
-            .addFilterBefore(new BasicAuthenticationFilter(paramHttpSecurity.getSharedObject(AuthenticationManager.class)),UsernamePasswordAuthenticationFilter.class);
+            .authorizeHttpRequests(auth -> auth
+                .requestMatchers("/api/auth/**").permitAll()
+                .requestMatchers("/api/articles/**").hasAnyRole("ADMIN","USER")
+                .anyRequest().authenticated()
+            )
+            .authenticationManager(paramAuthMngr)
+            .userDetailsService(srvUser)
+            .formLogin(form -> form.permitAll())
+            .httpBasic(basic -> {});
             
         return paramHttpSecurity.build();
     }
